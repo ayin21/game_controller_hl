@@ -135,7 +135,7 @@ class GameStateReceiver(Node):
         except IOError as e:
                 self.get_logger().warn(f"Error while sending keep-alive: {str(e)}")
 
-    def publish_diagnostics(self, reiceved_message_lately: bool):
+    def publish_diagnostics(self, received_message_lately: bool):
         """ 
         This publishes a Diagnostics Array.
         """
@@ -146,7 +146,7 @@ class GameStateReceiver(Node):
 
         #configure DiagnosticStatus message
         diag = DiagnosticStatus(name = "Game Controller", hardware_id = "Game Controller" )
-        if not reiceved_message_lately:
+        if not received_message_lately:
             diag.message = "Lost connection to game controller for " + str(int(self.get_time_since_last_package().nanoseconds/1e9)) + " sec"
             diag.level = DiagnosticStatus.WARN
         else:
